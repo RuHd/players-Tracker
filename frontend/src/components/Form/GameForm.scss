@@ -1,0 +1,62 @@
+.game-form {
+    
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    position: relative;
+    height: 100%;
+    font-size: 1.1em;
+
+     button {
+            scale: 1;
+            background-color: transparent;
+    }
+
+    .filter-icons {
+            color: white;
+    }
+
+    .list-options {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .inputSearch {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 5px;
+
+        input {
+            padding: 5px;
+            height: stretch;
+            font-size: 1rem;
+            border: 2px solid transparent;
+            transition: .3s;
+
+            &:focus {
+                outline: none;
+                border: 2px solid red;
+               
+            }
+        }
+
+        button {
+            background-color: transparent;
+            color: white;
+            scale: 1.2;
+        }
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .game-form {
+        scale: .8;
+        
+       
+    }
+    
+}

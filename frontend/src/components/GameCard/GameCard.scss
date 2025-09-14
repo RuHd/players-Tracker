@@ -1,0 +1,167 @@
+@use '../../styles/mixins.scss' as *;
+
+
+// game card style
+.game-card {
+    @include displayFlexContainer(column,  auto, auto);
+    padding: 0;
+    position: relative;
+    width: 241px;
+    min-height: 150px;
+    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.625);
+    z-index: 10;
+    transition: .5s;
+
+
+    &:hover {
+        scale: 1.05;
+    }
+
+    .close-icon {
+        position: absolute;
+        top: -15px;
+        left: -15px;
+        fill: red;
+        transition: fill .3s ease;
+
+        &:hover {
+            cursor: pointer;
+            fill: darkred;
+        }
+
+    }
+
+    .circle {
+        position: absolute;
+        top: -15px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        
+    }
+
+    .img-container {
+        width: 100%;
+       
+
+        img {
+            width: 100%;
+            height: 100%;
+        
+            object-fit: cover;
+        }
+    }
+
+    .game-info {
+        padding: 0px;
+        @include displayFlexContainer(row, space-around,100%, center, auto);
+        background-color: #363637;
+        font-size: 1.2em;
+
+        p {
+            
+            inline-size: min-content;
+        }
+        
+
+        .playersCount {
+            @include displayFlexContainer(row, center,100%, center);
+            gap: 10px;
+            height: 100%;
+            font-size: 1.7em;
+            padding: 5px;
+
+        }
+
+        .player-icon {
+            transform: translateY(1px);
+        }
+
+    }
+
+    .game-infography {
+        text-align: center;
+        padding: 10px;
+        width: 100%;
+        background-color: black;
+    }
+}
+
+.refreshBtn {
+    position: absolute;
+    bottom: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 1.1em;
+    background-color: transparent;
+}
+
+.refresh-icon {
+    background-color: transparent;
+    color: transparent;
+}
+
+.favoriteIcon {
+    animation: popsup .5s ease-in-out forwards;
+}
+
+// Change circle color based on players Count
+
+.low-player {
+    background-color: red;
+    box-shadow: 0px 0px 10px rgba(255, 0, 0, 0.5);
+}
+
+.mid-player {
+    background-color: yellow;
+    box-shadow: 0px 0px 10px rgba(255, 255, 0, 0.5);
+}
+
+.high-player {
+    background-color: rgb(110, 254, 110);
+    box-shadow: 0px 0px 10px rgba(152, 255, 152, 0.5);
+}
+
+
+// Animation when the players count is updated
+.updateAnimation {
+    animation: updateAnimation .5s ease-in-out;
+}
+
+// Animation when the game card loads
+.popsup {
+    animation: popsup .5s ease-in-out forwards;
+}
+
+.closed {
+    opacity: 0;
+    pointer-events: none;
+}
+
+@keyframes updateAnimation {
+    0% {
+        transform: scale(1);
+        color: white;
+    }
+    50% {
+        transform: scale(1.2);
+        color: red;
+    }
+    100% {
+        transform: scale(1);
+        color: white;
+    }
+    
+}
+
+@keyframes popsup {
+    
+    0% {
+        transform: scale(0);
+    }
+    100% {
+        transform: scale(1);
+    }
+}

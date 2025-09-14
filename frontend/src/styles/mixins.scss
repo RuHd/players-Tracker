@@ -1,0 +1,8 @@
+@mixin displayFlexContainer($direction: row, $justify: center, $align: center, $width: 100%, $height: 100%) {
+  display: flex;
+  flex-direction: $direction;
+  justify-content: $justify;
+  align-items: $align;
+  width: $width;
+  height: $height;
+}
