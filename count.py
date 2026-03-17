@@ -4,7 +4,6 @@ import requests
 import json
 import re
 import os
-import pdb
 
 API_KEY = os.getenv('STEAM_API_KEY')  # Ensure you have your Steam API key set in the environment variables
 
