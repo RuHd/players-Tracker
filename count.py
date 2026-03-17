@@ -4,6 +4,7 @@ import requests
 import json
 import re
 import os
+import pdb
 
 API_KEY = os.getenv('STEAM_API_KEY')  # Ensure you have your Steam API key set in the environment variables
 
@@ -21,9 +22,9 @@ def updateJSON():
     try:
         response = requests.get(f'https://api.steampowered.com/IStoreService/GetAppList/v1/?key={API_KEY}')
         data = response.json()
-        print("Data fetched successfully from Steam API")
 
-        data = data['applist']['apps']
+        data = data.get('applist', {}).get('apps', [])
+
 
         for game in data:
             game['name'] = re.sub(r"[^\w\s]", "", game['name'])
@@ -41,6 +42,7 @@ def getGames():
 
     data = request.get_json()
     app_id = data['game']['appid']
+
 
     if not app_id:
         return jsonify({"error": "game doesn't exists"}), 400
@@ -77,6 +79,7 @@ def refreshPlayersCount():
 
 @app.route('/getStats', methods=['POST']) # Gets the screenshots and price of a game from the Steam Store API when clicking on the card in the front-end.
 def getStats():
+
     data = request.get_json()
     
     app_id = data['game']['appid']
@@ -93,12 +96,17 @@ def getStats():
 
     game_data = res.json().get(str(app_id), {}).get('data', {})
 
+    genres_list = game_data.get('genres', [])
+    genres_descriptions = [genres_list[i]['description'] for i in range(len(genres_list)) if i < 3]
+ 
     if not game_data:
         return jsonify({"error": "Game data not found"}), 404
     
     return jsonify({
         'screenshots': game_data.get('screenshots', []),
-        'price': game_data.get('price_overview', {}).get('final_formatted')
+        'price': game_data.get('price_overview', {}).get('final_formatted'),
+        'description': game_data.get("short_description", ""),
+        'genres': genres_descriptions
     })
 
         
