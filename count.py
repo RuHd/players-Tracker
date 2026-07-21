@@ -22,18 +22,19 @@ def updateJSON():
         response = requests.get(f'https://api.steampowered.com/IStoreService/GetAppList/v1/?key={API_KEY}')
         data = response.json()
 
-        data = data.get('applist', {}).get('apps', [])
+        data = data.get('response', {}).get('apps', [])
 
 
         for game in data:
             game['name'] = re.sub(r"[^\w\s]", "", game['name'])
-            
+
         with open("games.json", "w", encoding='utf-8') as f:
             json.dump(data, f, indent=4, ensure_ascii=False)
 
         return jsonify({"message": "JSON file updated successfully"}), 200
-    
+
     except Exception as e:
+        app.logger.error(f"Failed to update JSON file: {e}")
         return jsonify({"error": "Failed to update JSON file"}), 500
 
 @app.route('/getGame', methods=['POST']) # Gets the appid from games.json when the user search for a specific game and scrapes the player count from steamcharts.com
